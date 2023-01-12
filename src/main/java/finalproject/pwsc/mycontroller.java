@@ -61,4 +61,21 @@ public class mycontroller {
         }
         return message;
     }
+    
+    //Mengedit data dengan PUT 
+    @PutMapping
+    public String editData(HttpEntity<String> requestdata) throws JsonProcessingException{
+        //menampilkan message data berhasil diedit
+        String message = "data berhasil diedit";
+        try{
+        String json_receive = requestdata.getBody();
+        ObjectMapper map = new ObjectMapper();
+        kpd = map .readValue(json_receive, Kependudukan.class);
+        ctrl.edit(kpd);} 
+        catch (Exception ex) {
+        //menampilkan message apabila data gagal diedit
+        message = "data gagal diedit";
+        }
+        return message;
+    }
 }
