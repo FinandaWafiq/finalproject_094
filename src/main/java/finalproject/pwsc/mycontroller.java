@@ -78,4 +78,22 @@ public class mycontroller {
         }
         return message;
     }
+    
+    //Menghapus data dengan DELETE
+    @DeleteMapping
+     public String deleteData(HttpEntity<String> requestdata) throws JsonProcessingException{
+        //menampilkan message data berhasil dihapus
+        String message = "data berhasil dihapus";
+        try{
+        String json_receive = requestdata.getBody();
+        ObjectMapper map = new ObjectMapper();
+        kpd = map .readValue(json_receive, Kependudukan.class);
+        ctrl.destroy(kpd.getId());} 
+        catch (Exception ex) {
+        //menampilkan message apabila data gagal dihapus
+        message = "data gagal dihapus";
+        }
+        return message;
+               
+    }
 }
