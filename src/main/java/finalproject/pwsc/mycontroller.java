@@ -33,18 +33,32 @@ public class mycontroller {
     //memanggil jpacontroller kependudukan
     KependudukanJpaController ctrl = new KependudukanJpaController();
     
+    //menampilkan object(data)yang sudah ditambahkan 
      @GetMapping
     public List<Kependudukan> getData(){
-        List<Kependudukan> data = new ArrayList<>(); //menambahkan object(data) pada ArrayList
+        List<Kependudukan> data = new ArrayList<>(); //menampilkan object(data)yang sudah ditambahkan pada ArrayList
         try{
         data = ctrl.findKependudukanEntities();
                 }catch (Exception e){
                     
                 }
                 return data;
-        
-    }  
-    
-         
     }
     
+    //Menambahkan POST Mapping (untuk menambahkan data)
+    @PostMapping
+    public String insertData(HttpEntity<String> requestdata) throws JsonProcessingException{
+        //menampilkan message apabila data berhasil ditambahkan
+        String message = "data berhasil ditambahkan";
+        try{
+        String json_receive = requestdata.getBody();
+        ObjectMapper map = new ObjectMapper();
+        kpd = map.readValue(json_receive, Kependudukan.class);
+        ctrl.create(kpd);} 
+        catch (Exception ex) {
+        //menampilkan message apabila data gagal ditambahkan
+        message = "gagal menambahkan data";
+        }
+        return message;
+    }
+}
