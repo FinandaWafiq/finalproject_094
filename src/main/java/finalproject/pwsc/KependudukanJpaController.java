@@ -27,6 +27,10 @@ public class KependudukanJpaController implements Serializable {
     }
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("pwsc_finalproject_jar_0.0.1-SNAPSHOTPU");
 
+    public KependudukanJpaController() {
+    }
+
+    
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
